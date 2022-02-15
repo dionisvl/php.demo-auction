@@ -6,4 +6,5 @@
         -   name: Add user authorized key
             authorized_key:
                 user: deploy
-                key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+#                key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+                key: "{{ lookup('file', '/home/den/.ssh/Oracle cloud vm1/vm1.key.pub') }}"
