@@ -45,5 +45,6 @@ services:
         environment:
             APP_ENV: dev
             APP_DEBUG: 1
+#            XDEBUG_MODE: coverage
         volumes:
             - ./api:/app
