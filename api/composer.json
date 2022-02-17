@@ -11,6 +11,7 @@
         "ext-json": "^7.4",
         "doctrine/annotations": "^1.13",
         "doctrine/cache": "^1.11",
+        "doctrine/migrations": "^2.2",
         "doctrine/orm": "^2.7",
         "laminas/laminas-config-aggregator": "^1.2",
         "php-di/php-di": "^6.0",
@@ -21,6 +22,7 @@
         "webmozart/assert": "^1.6"
     },
     "require-dev": {
+        "doctrine/data-fixtures": "^1.4",
         "overtrue/phplint": "^1.2",
         "phpunit/phpunit": "^8.5",
         "roave/security-advisories": "dev-master",

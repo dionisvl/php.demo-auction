@@ -53,7 +53,6 @@ services:
             DB_USER: app
             DB_PASSWORD: secret
             DB_NAME: app
-#            XDEBUG_MODE: coverage
         volumes:
             - ./api:/app
 
