@@ -9,6 +9,10 @@
     "require": {
         "php": "^7.4",
         "ext-json": "^7.4",
+        "doctrine/annotations": "^1.13",
+        "doctrine/cache": "^1.11",
+        "doctrine/orm": "^2.7",
+        "laminas/laminas-config-aggregator": "^1.2",
         "php-di/php-di": "^6.0",
         "ramsey/uuid": "^3.9",
         "slim/psr7": "^0.6.0",

@@ -30,7 +30,7 @@ docker-build:
 api-clear:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine sh -c 'rm -rf var/*'
 
-api-init: api-composer-install api-permissions
+api-init: api-permissions api-composer-install
 
 api-permissions:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var
@@ -99,6 +99,7 @@ deploy:
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=auction" >> .env'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
+	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_DB_PASSWORD=${API_DB_PASSWORD}" >> .env'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose pull'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'rm -f site'
