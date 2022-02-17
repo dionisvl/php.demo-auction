@@ -49,11 +49,11 @@ services:
         environment:
             APP_ENV: dev
             APP_DEBUG: 1
-#            XDEBUG_MODE: coverage
             DB_HOST: api-postgres
             DB_USER: app
             DB_PASSWORD: secret
             DB_NAME: app
+#            XDEBUG_MODE: coverage
         volumes:
             - ./api:/app
 
