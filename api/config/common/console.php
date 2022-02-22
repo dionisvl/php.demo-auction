@@ -16,7 +16,6 @@ return [
                 Migrations\Tools\Console\Command\LatestCommand::class,
                 Migrations\Tools\Console\Command\StatusCommand::class,
                 Migrations\Tools\Console\Command\UpToDateCommand::class,
-                ValidateSchemaCommand::class,
             ],
         ],
     ],
