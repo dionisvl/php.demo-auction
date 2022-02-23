@@ -6,12 +6,12 @@ check: lint analyze validate-schema test
 lint: api-lint
 analyze: api-analyze
 validate-schema: api-validate-schema
-test: api-test
+test: api-test api-fixtures
 test-coverage: api-test-coverage
 test-unit: api-test-unit
 test-unit-coverage: api-test-unit-coverage
-test-functional: api-test-functional
-test-functional-coverage: api-test-functional-coverage
+test-functional: api-test-functional api-fixtures
+test-functional-coverage: api-test-functional-coverage api-fixtures
 
 docker-up:
 	docker-compose up -d
@@ -113,13 +113,6 @@ deploy:
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_DB_PASSWORD=${API_DB_PASSWORD}" >> .env'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_DB_PASSWORD=${API_DB_PASSWORD}" >> .env'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_MAILER_HOST=${API_MAILER_HOST}" >> .env'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_MAILER_PORT=${API_MAILER_PORT}" >> .env'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_MAILER_USER=${API_MAILER_USER}" >> .env'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_MAILER_PASSWORD=${API_MAILER_PASSWORD}" >> .env'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_MAILER_FROM_EMAIL=${API_MAILER_FROM_EMAIL}" >> .env'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_DB_PASSWORD=${API_DB_PASSWORD}" >> .env'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_MAILER_HOST=${API_MAILER_HOST}" >> .env'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_MAILER_PORT=${API_MAILER_PORT}" >> .env'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && echo "API_MAILER_USER=${API_MAILER_USER}" >> .env'
@@ -130,12 +123,6 @@ deploy:
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose up --build -d api-postgres api-php-cli'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose run api-php-cli wait-for-it api-postgres:5432 -t 60'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose run api-php-cli php bin/app.php migrations:migrate --no-interaction'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose up --build -d api-postgres'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 60'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose run --rm api-php-cli php bin/app.php migrations:migrate --no-interaction'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose up --build -d api-postgres'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 60'
-	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose run --rm api-php-cli php bin/app.php migrations:migrate --no-interaction'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'cd site_${BUILD_NUMBER} && docker-compose up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'rm -f site'
 	ssh ${HOST} -p ${PORT} -i "${KEY}" 'ln -sr site_${BUILD_NUMBER} site'
