@@ -15,8 +15,10 @@
         "doctrine/orm": "^2.7",
         "finesse/swiftmailer-defaults-plugin": "^2.0",
         "laminas/laminas-config-aggregator": "^1.2",
+        "monolog/monolog": "^2.0",
         "php-di/php-di": "^6.0",
         "ramsey/uuid": "^3.9",
+        "sentry/sdk": "^2.1",
         "slim/psr7": "^1.0",
         "slim/slim": "^4.3",
         "swiftmailer/swiftmailer": "^6.2",
@@ -25,6 +27,7 @@
         "webmozart/assert": "^1.6"
     },
     "require-dev": {
+        "dms/phpunit-arraysubset-asserts": "^0.2.0",
         "doctrine/data-fixtures": "^1.4",
         "overtrue/phplint": "^1.2",
         "phpunit/phpunit": "^9.0",
@@ -48,7 +51,7 @@
         "cs-fix": "phpcbf",
         "psalm": "psalm",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-html var/coverage",
+        "test-coverage": "phpunit --colors=always --coverage-html var/test/coverage",
         "app": "php bin/app.php --ansi"
     }
 }

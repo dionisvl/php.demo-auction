@@ -1,2 +1,5 @@
 .idea
 temp
+/api/var/*.json
+/api/var/*.cache
+/.env
