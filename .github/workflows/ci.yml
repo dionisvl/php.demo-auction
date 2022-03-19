@@ -3,7 +3,7 @@ name: Pipeline
 on: push
 
 env:
-    REGISTRY: docker.pkg.github.com/deworkerpro/demo-auction
+    REGISTRY: docker.pkg.github.com/dionisvl/php.demo-auction
     REGISTRY_HOST: docker.pkg.github.com
 
 jobs:

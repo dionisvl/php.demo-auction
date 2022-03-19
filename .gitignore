@@ -1,0 +1,5 @@
+.idea
+.env
+/api/var/.phpcs.json
+/api/var/.phplint.json
+/api/var/.phpunit.result.cache
