@@ -39,7 +39,7 @@ services:
             MAILER_PASSWORD: ${API_MAILER_PASSWORD}
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
-            FRONTEND_URL: https://demo-auction.deworker.pro
+            FRONTEND_URL: http://demo-auction.phpqa.ru
             SENTRY_DSN: ${SENTRY_DSN}
 
     api-php-cli:
@@ -57,7 +57,7 @@ services:
             MAILER_PASSWORD: ${API_MAILER_PASSWORD}
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
-            FRONTEND_URL: https://demo-auction.deworker.pro
+            FRONTEND_URL: http://demo-auction.phpqa.ru
             SENTRY_DSN: ${SENTRY_DSN}
 
     api-postgres:
