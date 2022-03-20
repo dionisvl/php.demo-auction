@@ -1,4 +1,0 @@
-certbot_email: info@phpqa.ru
-certbot_hosts:
-    - ansible.phpqa.ru
-    - ansible-api.phpqa.ru
