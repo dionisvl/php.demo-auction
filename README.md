@@ -35,3 +35,7 @@
 - Проверить что все ок:
   - `ssh deploy@130.255.170.54 -p 222`
   - `docker node ls`
+
+- Проверить что деплой Docker Swarm прошел успешно:
+  - `docker service ls`
+  - `docker service ps auction_gateway`
