@@ -19,7 +19,7 @@
         "monolog/monolog": "^2.0",
         "php-di/php-di": "^6.0",
         "ramsey/uuid": "^4.0",
-        "sentry/sdk": "^2.1",
+        "sentry/sdk": "^3.1",
         "slim/psr7": "^1.0",
         "slim/slim": "^4.3",
         "swiftmailer/swiftmailer": "^6.2",
@@ -33,12 +33,12 @@
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "^0.2.0",
         "doctrine/data-fixtures": "^1.4",
-        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/guzzle": "^7.2",
         "overtrue/phplint": "^2.0",
         "phpunit/phpunit": "^9.2",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^3.5",
-        "vimeo/psalm": "^3.8"
+        "vimeo/psalm": "^4.3"
     },
     "autoload": {
         "psr-4": {
@@ -54,9 +54,9 @@
         "lint": "phplint",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
-        "psalm": "psalm",
+        "psalm": "psalm --alter --issues=MissingParamType --dry-run",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-html var/test/coverage",
+        "test-coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html var/test/coverage",
         "app": "php bin/app.php --ansi"
     }
 }
