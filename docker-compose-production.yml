@@ -50,7 +50,7 @@ services:
             MAILER_PASSWORD: ${API_MAILER_PASSWORD}
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
-            FRONTEND_URL: https://demo-auction.deworker.pro
+            FRONTEND_URL: http://demo-auction.phpqa.ru
             SENTRY_DSN: ${SENTRY_DSN}
         deploy:
             mode: replicated
@@ -74,7 +74,7 @@ services:
             MAILER_PASSWORD: ${API_MAILER_PASSWORD}
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
-            FRONTEND_URL: https://demo-auction.deworker.pro
+            FRONTEND_URL: http://demo-auction.phpqa.ru
             SENTRY_DSN: ${SENTRY_DSN}
         command: sh -c 'wait-for-it api-postgres:5432 -t 60 && php bin/app.php migrations:migrate --no-interaction'
         deploy:
