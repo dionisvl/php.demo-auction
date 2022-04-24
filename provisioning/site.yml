@@ -16,12 +16,12 @@
         - docker
         - swarm-worker
 
--   name: Set labels
-    hosts: manager
-    remote_user: root
-    roles:
-        -   role: swarm-labels
-            vars:
-                hostname: "{{ db_hostname }}"
-                labels:
-                    db: db
+#-   name: Set labels
+#    hosts: manager
+#    remote_user: root
+#    roles:
+#        -   role: swarm-labels
+#            vars:
+#                hostname: "{{ db_hostname }}"
+#                labels:
+#                    db: db
