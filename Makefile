@@ -143,6 +143,7 @@ cucumber-smoke:
 cucumber-e2e:
 	docker-compose run --rm cucumber-node-cli yarn e2e
 
+# REGISTRY=registry.demo-auction.phpqa.ru:3000 IMAGE_TAG=jenkins-auction-master-1 make build
 build: build-gateway build-frontend build-api
 
 build-gateway:
@@ -159,6 +160,7 @@ build-api:
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
 
+# REGISTRY=registry.demo-auction.phpqa.ru:3000 IMAGE_TAG=jenkins-auction-master-1 make push
 push: push-gateway push-frontend push-api
 
 push-gateway:
