@@ -3,10 +3,20 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
+import cookie from 'cookie'
+import { mergeFeatures } from './FeatureToggle'
+import defaultFeatures from './features'
+
+const cookies = cookie.parse(document.cookie)
+const cookieFeatures = (cookies.features || '')
+  .split(/\s*,\s*/g)
+  .filter(Boolean)
+
+const features = mergeFeatures(defaultFeatures, cookieFeatures)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App features={features} />
   </React.StrictMode>,
   document.getElementById('root')
 )
