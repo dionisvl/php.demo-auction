@@ -3,3 +3,6 @@ temp
 /api/var/*.json
 /api/var/*.cache
 /.env
+
+/.docker-images-before
+/.docker-images-after
