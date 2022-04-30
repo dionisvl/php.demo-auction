@@ -15,6 +15,10 @@ class FeaturesMonologProcessor implements ProcessorInterface
         $this->context = $context;
     }
 
+    /**
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
+     */
     public function __invoke(array $record): array
     {
         return array_merge_recursive($record, [
