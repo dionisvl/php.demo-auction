@@ -60,7 +60,7 @@ class User
      */
     private Role $role;
     /**
-     * @psalm-var Collection<array-key,UserNetwork>
+     * @var Collection<array-key,UserNetwork>
      * @ORM\OneToMany(targetEntity="UserNetwork", mappedBy="user", cascade={"all"}, orphanRemoval=true)
      */
     private Collection $networks;
@@ -111,7 +111,6 @@ class User
 
     public function attachNetwork(Network $network): void
     {
-        /** @var UserNetwork $existing */
         foreach ($this->networks as $existing) {
             if ($existing->getNetwork()->isEqualTo($network)) {
                 throw new DomainException('Network is already attached.');
