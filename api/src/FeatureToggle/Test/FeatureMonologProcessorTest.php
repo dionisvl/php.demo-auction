@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\FeatureToggle\Test\Unit;
+namespace App\FeatureToggle\Test;
 
-use App\FeatureToggle\Features;
 use App\FeatureToggle\FeaturesContext;
 use App\FeatureToggle\FeaturesMonologProcessor;
 use PHPUnit\Framework\TestCase;
 
-class FeatureMonologProcessorTest extends TestCase
+/**
+ * @internal
+ */
+final class FeatureMonologProcessorTest extends TestCase
 {
     public function testProcess(): void
     {
@@ -20,13 +22,13 @@ class FeatureMonologProcessorTest extends TestCase
 
         /** @psalm-suppress InvalidArgument */
         $result = $processor([
-            'message' => 'Message'
+            'message' => 'Message',
         ]);
 
         self::assertEquals([
             'message' => 'Message',
             'extra' => [
-                'features' => $source
+                'features' => $source,
             ],
         ], $result);
     }

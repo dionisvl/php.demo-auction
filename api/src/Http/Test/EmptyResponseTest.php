@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Unit;
+namespace App\Http\Test;
 
 use App\Http\EmptyResponse;
 use PHPUnit\Framework\TestCase;
 
-class EmptyResponseTest extends TestCase
+/**
+ * @internal
+ */
+final class EmptyResponseTest extends TestCase
 {
     public function testDefault(): void
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Frontend\Test\Unit;
+namespace App\Frontend\Test;
 
 use App\Frontend\FrontendUrlGenerator;
 use App\Frontend\FrontendUrlTwigExtension;
@@ -12,8 +12,10 @@ use Twig\Loader\ArrayLoader;
 
 /**
  * @covers \App\Frontend\FrontendUrlTwigExtension
+ *
+ * @internal
  */
-class FrontendUrlTwigExtensionTest extends TestCase
+final class FrontendUrlTwigExtensionTest extends TestCase
 {
     public function testSuccess(): void
     {

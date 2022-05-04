@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\FeatureToggle\Test\Unit;
+namespace App\FeatureToggle\Test;
 
-use App\FeatureToggle\Features;
 use App\FeatureToggle\FeaturesMiddleware;
 use App\FeatureToggle\FeatureSwitch;
 use PHPUnit\Framework\TestCase;
@@ -16,8 +15,10 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 
 /**
  * @covers \App\FeatureToggle\FeaturesMiddleware
+ *
+ * @internal
  */
-class FeaturesMiddlewareTest extends TestCase
+final class FeaturesMiddlewareTest extends TestCase
 {
     public function testEmpty(): void
     {

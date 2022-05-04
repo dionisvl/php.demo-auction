@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\FeatureToggle\Test\Unit;
+namespace App\FeatureToggle\Test;
 
 use App\FeatureToggle\Features;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \App\FeatureToggle\Features
+ *
+ * @internal
  */
-class FeaturesTest extends TestCase
+final class FeaturesTest extends TestCase
 {
     public function testInitial(): void
     {

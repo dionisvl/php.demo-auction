@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Frontend\Test\Unit;
+namespace App\Frontend\Test;
 
 use App\Frontend\FrontendUrlGenerator;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \App\Frontend\FrontendUrlGenerator
+ *
+ * @internal
  */
-class FrontendUrlGeneratorTest extends TestCase
+final class FrontendUrlGeneratorTest extends TestCase
 {
     public function testEmpty(): void
     {

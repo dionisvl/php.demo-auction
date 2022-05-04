@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Auth\Test\Builder;
 
-use App\Auth\Entity\User\Network;
-use App\Auth\Entity\User\Token;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
+use App\Auth\Entity\User\Network;
+use App\Auth\Entity\User\Token;
 use App\Auth\Entity\User\User;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 
-class UserBuilder
+final class UserBuilder
 {
     private Id $id;
     private Email $email;

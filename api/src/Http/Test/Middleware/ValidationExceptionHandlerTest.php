@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Unit\Middleware;
+namespace App\Http\Test\Middleware;
 
 use App\Http\Middleware\ValidationExceptionHandler;
 use App\Http\Validator\ValidationException;
@@ -17,8 +17,10 @@ use Symfony\Component\Validator\ConstraintViolationList;
 
 /**
  * @covers \App\Http\Middleware\ValidationExceptionHandler
+ *
+ * @internal
  */
-class ValidationExceptionHandlerTest extends TestCase
+final class ValidationExceptionHandlerTest extends TestCase
 {
     public function testNormal(): void
     {

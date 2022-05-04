@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use DomainException;
 
-class UserRepository
+final class UserRepository
 {
     /**
      * @var EntityRepository<User>
@@ -17,7 +17,6 @@ class UserRepository
     private EntityManagerInterface $em;
 
     /**
-     * @param EntityManagerInterface $em
      * @param EntityRepository<User> $repo
      */
     public function __construct(EntityManagerInterface $em, EntityRepository $repo)
@@ -29,48 +28,33 @@ class UserRepository
     public function hasByEmail(Email $email): bool
     {
         return $this->repo->createQueryBuilder('t')
-                ->select('COUNT(t.id)')
-                ->andWhere('t.email = :email')
-                ->setParameter(':email', $email->getValue())
-                ->getQuery()->getSingleScalarResult() > 0;
+            ->select('COUNT(t.id)')
+            ->andWhere('t.email = :email')
+            ->setParameter(':email', $email->getValue())
+            ->getQuery()->getSingleScalarResult() > 0;
     }
 
     public function hasByNetwork(Network $network): bool
     {
         return $this->repo->createQueryBuilder('t')
-                ->select('COUNT(t.id)')
-                ->innerJoin('t.networks', 'n')
-                ->andWhere('n.network.name = :name and n.network.identity = :identity')
-                ->setParameter(':name', $network->getName())
-                ->setParameter(':identity', $network->getIdentity())
-                ->getQuery()->getSingleScalarResult() > 0;
+            ->select('COUNT(t.id)')
+            ->innerJoin('t.networks', 'n')
+            ->andWhere('n.network.name = :name and n.network.identity = :identity')
+            ->setParameter(':name', $network->getName())
+            ->setParameter(':identity', $network->getIdentity())
+            ->getQuery()->getSingleScalarResult() > 0;
     }
 
-    /**
-     * @param string $token
-     * @return User|object|null
-     * @psalm-return User|null
-     */
     public function findByJoinConfirmToken(string $token): ?User
     {
         return $this->repo->findOneBy(['joinConfirmToken.value' => $token]);
     }
 
-    /**
-     * @param string $token
-     * @return User|object|null
-     * @psalm-return User|null
-     */
     public function findByPasswordResetToken(string $token): ?User
     {
         return $this->repo->findOneBy(['passwordResetToken.value' => $token]);
     }
 
-    /**
-     * @param string $token
-     * @return User|object|null
-     * @psalm-return User|null
-     */
     public function findByNewEmailToken(string $token): ?User
     {
         return $this->repo->findOneBy(['newEmailToken.value' => $token]);

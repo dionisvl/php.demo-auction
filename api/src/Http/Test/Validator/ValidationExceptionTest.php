@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Unit\Validator;
+namespace App\Http\Test\Validator;
 
 use App\Http\Validator\ValidationException;
 use PHPUnit\Framework\TestCase;
@@ -10,8 +10,10 @@ use Symfony\Component\Validator\ConstraintViolationList;
 
 /**
  * @covers \App\Http\Validator\ValidationException
+ *
+ * @internal
  */
-class ValidationExceptionTest extends TestCase
+final class ValidationExceptionTest extends TestCase
 {
     public function testValid(): void
     {

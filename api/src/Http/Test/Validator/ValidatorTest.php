@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Unit\Validator;
+namespace App\Http\Test\Validator;
 
 use App\Http\Validator\ValidationException;
 use App\Http\Validator\Validator;
@@ -15,8 +15,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @covers \App\Http\Validator\Validator
+ *
+ * @internal
  */
-class ValidatorTest extends TestCase
+final class ValidatorTest extends TestCase
 {
     public function testValid(): void
     {

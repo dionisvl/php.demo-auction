@@ -10,7 +10,7 @@ use Psr\Http\Message\UploadedFileInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class ClearEmptyInput implements MiddlewareInterface
+final class ClearEmptyInput implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -21,13 +21,9 @@ class ClearEmptyInput implements MiddlewareInterface
         return $handler->handle($request);
     }
 
-    /**
-     * @param null|array|object $items
-     * @return null|array|object
-     */
-    private static function filterStrings($items)
+    private static function filterStrings(object|array|null $items): object|array|null
     {
-        if (!is_array($items)) {
+        if (!\is_array($items)) {
             return $items;
         }
 
@@ -35,10 +31,10 @@ class ClearEmptyInput implements MiddlewareInterface
 
         /**
          * @var string $key
-         * @var null|string|object $item
+         * @var object|string|null $item
          */
         foreach ($items as $key => $item) {
-            if (is_string($item)) {
+            if (\is_string($item)) {
                 $result[$key] = trim($item);
             } else {
                 $result[$key] = self::filterStrings($item);

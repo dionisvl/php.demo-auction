@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\FeatureToggle\Test\Unit;
+namespace App\FeatureToggle\Test;
 
 use App\FeatureToggle\FeatureFlag;
 use App\FeatureToggle\FeatureFlagTwigExtension;
@@ -12,8 +12,10 @@ use Twig\Loader\ArrayLoader;
 
 /**
  * @covers \App\FeatureToggle\FeatureFlagTwigExtension
+ *
+ * @internal
  */
-class FeatureFlagTwigExtensionTest extends TestCase
+final class FeatureFlagTwigExtensionTest extends TestCase
 {
     public function testActive(): void
     {

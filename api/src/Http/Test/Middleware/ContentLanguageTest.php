@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Unit\Middleware;
+namespace App\Http\Test\Middleware;
 
 use Middlewares\ContentLanguage;
 use PHPUnit\Framework\TestCase;
@@ -14,8 +14,10 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 
 /**
  * @covers \Middlewares\ContentLanguage
+ *
+ * @internal
  */
-class ContentLanguageTest extends TestCase
+final class ContentLanguageTest extends TestCase
 {
     public function testDefault(): void
     {

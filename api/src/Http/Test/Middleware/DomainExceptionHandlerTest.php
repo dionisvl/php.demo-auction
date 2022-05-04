@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Unit\Middleware;
+namespace App\Http\Test\Middleware;
 
 use App\Http\Middleware\DomainExceptionHandler;
 use DomainException;
@@ -15,13 +15,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @covers \App\Http\Middleware\DomainExceptionHandler
+ *
+ * @internal
  */
-class DomainExceptionHandlerTest extends TestCase
+final class DomainExceptionHandlerTest extends TestCase
 {
     public function testNormal(): void
     {
         $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects($this->never())->method('warning');
+        $logger->expects(self::never())->method('warning');
 
         $translator = $this->createStub(TranslatorInterface::class);
 
