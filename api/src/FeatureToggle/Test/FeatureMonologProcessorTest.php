@@ -20,7 +20,6 @@ final class FeatureMonologProcessorTest extends TestCase
 
         $processor = new FeaturesMonologProcessor($context);
 
-        /** @psalm-suppress InvalidArgument */
         $result = $processor([
             'message' => 'Message',
         ]);

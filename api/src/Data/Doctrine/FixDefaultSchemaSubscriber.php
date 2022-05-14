@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Data\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\DBAL\Schema\PostgreSQLSchemaManager;
+use Doctrine\DBAL\Schema\PostgreSqlSchemaManager;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 use Doctrine\ORM\Tools\ToolEvents;
 
@@ -31,7 +31,7 @@ final class FixDefaultSchemaSubscriber implements EventSubscriber
         /**
          * @psalm-suppress RedundantConditionGivenDocblockType
          */
-        if (!$schemaManager instanceof PostgreSQLSchemaManager) {
+        if (!$schemaManager instanceof PostgreSqlSchemaManager) {
             return;
         }
 
