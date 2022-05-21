@@ -147,7 +147,6 @@ cucumber-smoke:
 cucumber-e2e:
 	docker-compose run --rm cucumber-node-cli yarn e2e
 
-# REGISTRY=registry.demo-auction.phpqa.ru:3000 IMAGE_TAG=jenkins-auction-master-1 make build
 build: build-gateway build-frontend build-api
 
 build-gateway:
@@ -164,7 +163,6 @@ build-api:
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
 
-# REGISTRY=registry.demo-auction.phpqa.ru:3000 IMAGE_TAG=jenkins-auction-master-1 make push
 push: push-gateway push-frontend push-api
 
 push-gateway:
@@ -233,8 +231,12 @@ deploy:
 	rm -f docker-compose-production-env.yml
 
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'mkdir site_${BUILD_NUMBER}/secrets'
-	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PUBLIC_KEY} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/jwt_public.key
-	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PRIVATE_KEY} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/jwt_private.key
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${API_DB_PASSWORD_FILE} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/api_db_password
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${API_MAILER_PASSWORD_FILE} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/api_mailer_password
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${SENTRY_DSN_FILE} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/sentry_dsn
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_ENCRYPTION_KEY_FILE} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/jwt_encryption_key
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PUBLIC_KEY} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/jwt_public_key
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PRIVATE_KEY} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/jwt_private_key
 
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker stack deploy --compose-file docker-compose.yml auction --with-registry-auth --prune'
 
