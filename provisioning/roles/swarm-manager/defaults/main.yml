@@ -1,4 +1,0 @@
-certbot_email: info@phpqa.ru
-certbot_hosts:
-    - demo-auction.phpqa.ru
-    - api.demo-auction.phpqa.ru
