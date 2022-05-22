@@ -8,28 +8,72 @@ services:
             LOG_LEVEL: info
         deploy:
             placement:
-                constraints: [node.role == manager]
+                constraints: [ node.role == manager ]
 
-    gateway:
-        image: ${REGISTRY}/auction-gateway:${IMAGE_TAG}
-        volumes:
-            - /etc/letsencrypt:/etc/letsencrypt:ro
-            - /var/www/html:/var/www/html:ro
+    traefik:
+        image: traefik:2.4
+        command:
+            --providers.docker=true
+            --providers.docker.watch=true
+            --providers.docker.swarmMode=true
+            --providers.docker.exposedByDefault=false
+            --entryPoints.http.address=:80
+            --entryPoints.https.address=:443
+            --certificatesresolvers.letsEncrypt.acme.httpChallenge=true
+            --certificatesresolvers.letsEncrypt.acme.httpChallenge.entryPoint=http
+            --certificatesresolvers.letsEncrypt.acme.email=mail@phpqa.ru
+            --certificatesresolvers.letsEncrypt.acme.storage=/certs/acme.json
         ports:
-            - "80:80"
-            - "443:443"
+            - target: 80
+              published: 80
+              protocol: tcp
+              mode: host
+            - target: 443
+              published: 443
+              protocol: tcp
+              mode: host
+        networks:
+            - traefik-public
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - traefik-public-certs:/certs
         deploy:
-            mode: replicated
-            replicas: 2
-            update_config:
-                parallelism: 1
-                delay: 10s
+            labels:
+                - traefik.enable=true
+                - traefik.docker.network=traefik-public
+
+                - traefik.http.routers.http-catchall.rule=HostRegexp(`{host:.+}`)
+                - traefik.http.routers.http-catchall.entryPoints=http
+                - traefik.http.routers.http-catchall.middlewares=redirect-to-https
+                - traefik.http.services.http-catchall.loadBalancer.server.port=80
+
+                - traefik.http.middlewares.redirect-to-https.redirectScheme.scheme=https
+                - traefik.http.middlewares.redirect-to-https.redirectScheme.permanent=true
+
+                - traefik.http.middlewares.secure-headers.headers.sslRedirect=true
+                - traefik.http.middlewares.secure-headers.headers.stsSeconds=31536000
+                - traefik.http.middlewares.secure-headers.headers.contentSecurityPolicy=block-all-mixed-content
             placement:
-                constraints: [node.role == manager]
+                constraints: [ node.role == manager ]
 
     frontend:
         image: ${REGISTRY}/auction-frontend:${IMAGE_TAG}
+        networks:
+            - traefik-public
+            - default
         deploy:
+            labels:
+                - traefik.enable=true
+                - traefik.docker.network=traefik-public
+                - traefik.http.routers.frontend.rule=Host(`demo-auction.phpqa.ru`) || Host(`www.demo-auction.phpqa.ru`)
+                - traefik.http.services.frontend.loadBalancer.server.port=80
+                - traefik.http.middlewares.frontend-redirect.redirectRegex.regex=^(https?://)www.demo-auction.phpqa.ru/(.*)$$
+                - traefik.http.middlewares.frontend-redirect.redirectRegex.replacement=$${1}demo-auction.phpqa.ru/$${2}
+                - traefik.http.middlewares.frontend-redirect.redirectRegex.permanent=true
+                - traefik.http.routers.frontend.middlewares=frontend-redirect,secure-headers
+                - traefik.http.routers.frontend.entryPoints=https
+                - traefik.http.routers.frontend.tls=true
+                - traefik.http.routers.frontend.tls.certResolver=letsEncrypt
             mode: replicated
             replicas: 2
             update_config:
@@ -38,7 +82,19 @@ services:
 
     api:
         image: ${REGISTRY}/auction-api:${IMAGE_TAG}
+        networks:
+            - traefik-public
+            - default
         deploy:
+            labels:
+                - traefik.enable=true
+                - traefik.docker.network=traefik-public
+                - traefik.http.routers.api.rule=Host(`api.demo-auction.phpqa.ru`)
+                - traefik.http.services.api.loadBalancer.server.port=80
+                - traefik.http.routers.api.middlewares=secure-headers
+                - traefik.http.routers.api.entryPoints=https
+                - traefik.http.routers.api.tls=true
+                - traefik.http.routers.api.tls.certResolver=letsEncrypt
             mode: replicated
             replicas: 2
             update_config:
@@ -60,7 +116,7 @@ services:
             MAILER_PASSWORD_FILE: /run/secrets/api_mailer_password
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
-            FRONTEND_URL: http://demo-auction.phpqa.ru
+            FRONTEND_URL: https://demo-auction.phpqa.ru
             SENTRY_DSN_FILE: /run/secrets/sentry_dsn
             JWT_ENCRYPTION_KEY_FILE: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
@@ -94,7 +150,7 @@ services:
             MAILER_PASSWORD_FILE: /run/secrets/api_mailer_password
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
-            FRONTEND_URL: http://demo-auction.phpqa.ru
+            FRONTEND_URL: https://demo-auction.phpqa.ru
             SENTRY_DSN_FILE: /run/secrets/sentry_dsn
             JWT_ENCRYPTION_KEY_FILE: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
@@ -129,7 +185,7 @@ services:
             MAILER_PASSWORD_FILE: /run/secrets/api_mailer_password
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
-            FRONTEND_URL: http://demo-auction.phpqa.ru
+            FRONTEND_URL: https://demo-auction.phpqa.ru
             SENTRY_DSN_FILE: /run/secrets/sentry_dsn
             JWT_ENCRYPTION_KEY_FILE: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
@@ -163,7 +219,7 @@ services:
             - api-postgres:/var/lib/postgresql/data
         deploy:
             placement:
-                constraints: [node.labels.db == db]
+                constraints: [ node.labels.db == db ]
             endpoint_mode: dnsrr
 
     api-postgres-backup:
@@ -209,4 +265,9 @@ secrets:
         file: ./secrets/backup_aws_secret_access_key
 
 volumes:
+    traefik-public-certs:
     api-postgres:
+
+networks:
+    traefik-public:
+        name: traefik-public
