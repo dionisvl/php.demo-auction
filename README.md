@@ -3,13 +3,15 @@
 ## Installation to dev
 - run command `make init`
 - see working elements:
-  - Frontend http://localhost:8080/
-  - API http://localhost:8081/
-  - MailHog http://localhost:8082/
+  - Frontend: http://localhost
+  - API: http://api.localhost/
+  - MailHog: http://mailer.localhost/
+  - S3 MINIO: http://backup-storage.localhost/
 - also, there are **Jenkins** (from another project) - http://localhost:8000/
 - also, there are **Docker Registry** (from another project) - http://localhost:5000/v2/
 
 ## Installation to production
+#### See actual instruction in "cluster" project. Instruction below is deprecated:
 - install the Jenkins to production, for more info go to demo-auction-jenkins project.
 - install the Docker Registry to production, for more info go to demo-auction-registry project.
 - go to provision directory and prepare target servers
