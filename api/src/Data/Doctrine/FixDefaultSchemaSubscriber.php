@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Data\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\DBAL\Schema\PostgreSqlSchemaManager;
+use Doctrine\DBAL\Schema\PostgreSQLSchemaManager;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 use Doctrine\ORM\Tools\ToolEvents;
 
@@ -20,18 +20,12 @@ final class FixDefaultSchemaSubscriber implements EventSubscriber
 
     public function postGenerateSchema(GenerateSchemaEventArgs $args): void
     {
-        /**
-         * @psalm-suppress DeprecatedMethod
-         */
         $schemaManager = $args
             ->getEntityManager()
             ->getConnection()
-            ->getSchemaManager();
+            ->createSchemaManager();
 
-        /**
-         * @psalm-suppress RedundantConditionGivenDocblockType
-         */
-        if (!$schemaManager instanceof PostgreSqlSchemaManager) {
+        if (!$schemaManager instanceof PostgreSQLSchemaManager) {
             return;
         }
 
