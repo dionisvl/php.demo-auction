@@ -3,7 +3,7 @@
 ## Installation to dev
 - run command `make init`
 - see working elements:
-  - Frontend: http://localhost
+  - Frontend: http://localhost/
   - API: http://api.localhost/
   - MailHog: http://mailer.localhost/
   - S3 MINIO: http://backup-storage.localhost/
@@ -11,18 +11,13 @@
 - also, there are **Docker Registry** (from another project) - http://localhost:5000/v2/
 
 ## Installation to production
-#### See actual instruction in "cluster" project. Instruction below is deprecated:
-- install the Jenkins to production, for more info go to demo-auction-jenkins project.
-- install the Docker Registry to production, for more info go to demo-auction-registry project.
-- go to provision directory and prepare target servers
-  - cd pro*
-  - make site
-  - make authorize
-  - make generate-deploy-key
-  - make authorize-deploy
-  - docker-login
-- return to main directory and deploy project to target servers by example command:  
-  - `make deploy`
+### See actual instruction in "Cluster" project.
+### See next sites:
+- http://api.demo-auction.phpqa.ru/
+- http://demo-auction.phpqa.ru/
+- http://registry.demo-auction.phpqa.ru/
+- http://cache-registry.demo-auction.phpqa.ru/
+- http://jenkins.demo-auction.phpqa.ru/
 
 
 ## Another remarks
